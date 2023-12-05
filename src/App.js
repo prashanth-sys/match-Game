@@ -301,7 +301,7 @@ class MatchGame extends Component {
   }
 
   onImage = event => {
-    const {matchImageURL, isGameOver} = this.state
+    const {matchImageURL, isGameOver, sec} = this.state
 
     if (isGameOver) {
       return
