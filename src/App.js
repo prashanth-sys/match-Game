@@ -307,7 +307,7 @@ class MatchGame extends Component {
       return
     }
 
-    if (matchImageURL === event.thumbnailUrl) {
+    if (matchImageURL === event.imageUrl) {
       this.setState(prevState => ({
         count: prevState.count + 1,
 
@@ -319,10 +319,8 @@ class MatchGame extends Component {
   }
 
   getRandomImage = () => {
-    const filterProject = this.filterderImages()
-
     const randomImage = Math.floor(Math.random() * imagesList.length)
-    return filterProject[randomImage].imageUrl
+    return imagesList[randomImage].imageUrl
   }
 
   endGame = () => {
