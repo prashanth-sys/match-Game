@@ -271,6 +271,7 @@ class MatchGame extends Component {
   }
 
   startGame = () => {
+    clearInterval(this.timerInterval)
     this.setState({
       count: 0,
       sec: 60,
@@ -301,6 +302,7 @@ class MatchGame extends Component {
 
   onImage = event => {
     const {matchImageURL, isGameOver} = this.state
+
     if (isGameOver) {
       return
     }
@@ -315,6 +317,13 @@ class MatchGame extends Component {
     }
   }
 
+  getRandomImage = () => {
+    const filterProject = this.filterderImages()
+
+    const randomImage = Math.floor(Math.random() * filterProject.length)
+    return filterProject[randomImage].imageUrl
+  }
+
   endGame = () => {
     clearInterval(this.timerInterval)
     this.setState({
@@ -324,13 +333,6 @@ class MatchGame extends Component {
 
   gameStart = () => {
     this.startGame()
-  }
-
-  getRandomImage = () => {
-    const filterProject = this.filterderImages()
-
-    const randomImage = Math.floor(Math.random() * filterProject.length)
-    return filterProject[randomImage].imageUrl
   }
 
   onFruiteAndAnimaAndPlaces = tabId => {
@@ -343,7 +345,6 @@ class MatchGame extends Component {
 
     return (
       <div className="bg-container">
-        {' '}
         <ul className="nav-container">
           <li>
             <img
@@ -358,7 +359,6 @@ class MatchGame extends Component {
             </p>
           </li>
           <li>
-            {' '}
             <img
               src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
               alt="timer"
@@ -367,10 +367,6 @@ class MatchGame extends Component {
           </li>
           <li>
             <p className="heading">{sec} Sec</p>
-          </li>
-          <li>
-            {' '}
-            <h1 className="heading">sec</h1>
           </li>
         </ul>
         <div className="image-container">
@@ -384,18 +380,20 @@ class MatchGame extends Component {
           />
         </div>
         <div className="button-container">
-          {tabsList.map(tab => (
-            <li key={tab.tabId}>
-              <button
-                key={tab.tabId}
-                className="button-1"
-                type="button"
-                onClick={() => this.onFruiteAndAnimaAndPlaces(tab.tabId)}
-              >
-                {tab.displayText}
-              </button>{' '}
-            </li>
-          ))}
+          <ul className="button-container">
+            {tabsList.map(tab => (
+              <li key={tab.tabId}>
+                <button
+                  key={tab.tabId}
+                  className="button-1"
+                  type="button"
+                  onClick={() => this.onFruiteAndAnimaAndPlaces(tab.tabId)}
+                >
+                  {tab.displayText}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="show-container">
           <ul className="list-images">
@@ -422,8 +420,9 @@ class MatchGame extends Component {
               src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png "
               alt="trophy"
             />
-            <h1>Game Over!</h1>
+
             <p>YOUR SCORE: {count}</p>
+            <p>{count}</p>
             <button
               className="reset-button"
               type="button"
