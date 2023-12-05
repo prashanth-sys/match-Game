@@ -306,7 +306,8 @@ class MatchGame extends Component {
     if (isGameOver) {
       return
     }
-    if (matchImageURL === event.imageUrl) {
+
+    if (matchImageURL === event.thumbnailUrl) {
       this.setState(prevState => ({
         count: prevState.count + 1,
 
@@ -320,7 +321,7 @@ class MatchGame extends Component {
   getRandomImage = () => {
     const filterProject = this.filterderImages()
 
-    const randomImage = Math.floor(Math.random() * filterProject.length)
+    const randomImage = Math.floor(Math.random() * imagesList.length)
     return filterProject[randomImage].imageUrl
   }
 
@@ -370,14 +371,7 @@ class MatchGame extends Component {
           </li>
         </ul>
         <div className="image-container">
-          <img
-            alt="match"
-            src={
-              matchImageURL ||
-              'https://assets.ccbp.in/frontend/react-js/match-game/orange-thumbnail-img.png'
-            }
-            className="image"
-          />
+          <img alt="match" src={matchImageURL} className="image" />
         </div>
         <div className="button-container">
           <ul className="button-container">
@@ -414,28 +408,31 @@ class MatchGame extends Component {
             ))}
           </ul>
         </div>
-        {isGameOver ? (
-          <div className="game-container">
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png "
-              alt="trophy"
-            />
 
-            <p>YOUR SCORE: {count}</p>
-            <p>{count}</p>
-            <button
-              className="reset-button"
-              type="button"
-              onClick={this.gameStart}
-            >
+        {isGameOver && (
+          <div className="bg-container">
+            <div className="game-container">
               <img
-                src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
-                alt="reset"
-              />{' '}
-              PLAY AGAIN
-            </button>
+                src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png "
+                alt="trophy"
+              />
+
+              <p>YOUR SCORE</p>
+              <p>{count}</p>
+              <button
+                className="reset-button"
+                type="button"
+                onClick={this.gameStart}
+              >
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+                  alt="reset"
+                />{' '}
+                PLAY AGAIN
+              </button>
+            </div>
           </div>
-        ) : null}
+        )}
       </div>
     )
   }
