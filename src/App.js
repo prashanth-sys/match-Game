@@ -271,7 +271,6 @@ class MatchGame extends Component {
   }
 
   startGame = () => {
-    clearInterval(this.timerInterval)
     this.setState({
       count: 0,
       sec: 60,
@@ -301,7 +300,7 @@ class MatchGame extends Component {
   }
 
   onImage = event => {
-    const {matchImageURL, isGameOver, sec} = this.state
+    const {matchImageURL, isGameOver} = this.state
     if (isGameOver) {
       return
     }
@@ -311,7 +310,7 @@ class MatchGame extends Component {
 
         matchImageURL: this.getRandomImage(),
       }))
-    } else if (sec === 0) {
+    } else {
       this.endGame()
     }
   }
@@ -367,7 +366,7 @@ class MatchGame extends Component {
             />
           </li>
           <li>
-            <p className="heading">{sec} sec</p>
+            <p className="heading">{sec} Sec</p>
           </li>
           <li>
             {' '}
@@ -376,29 +375,27 @@ class MatchGame extends Component {
         </ul>
         <div className="image-container">
           <img
+            alt="match"
             src={
               matchImageURL ||
               'https://assets.ccbp.in/frontend/react-js/match-game/orange-thumbnail-img.png'
             }
             className="image"
-            alt="match"
           />
         </div>
         <div className="button-container">
-          <ul className="button-container">
-            {tabsList.map(tab => (
-              <li key={tab.tabId} className="list-container">
-                <button
-                  key={tab.tabId}
-                  className="button-1"
-                  type="button"
-                  onClick={() => this.onFruiteAndAnimaAndPlaces(tab.tabId)}
-                >
-                  {tab.displayText}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {tabsList.map(tab => (
+            <li key={tab.tabId}>
+              <button
+                key={tab.tabId}
+                className="button-1"
+                type="button"
+                onClick={() => this.onFruiteAndAnimaAndPlaces(tab.tabId)}
+              >
+                {tab.displayText}
+              </button>{' '}
+            </li>
+          ))}
         </div>
         <div className="show-container">
           <ul className="list-images">
@@ -411,7 +408,7 @@ class MatchGame extends Component {
                 >
                   <img
                     src={eachImage.thumbnailUrl}
-                    alt={eachImage.thumbnail}
+                    alt="thumbnail"
                     className="list-image"
                   />
                 </button>
@@ -425,8 +422,8 @@ class MatchGame extends Component {
               src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png "
               alt="trophy"
             />
-            <h2>Game Over!</h2>
-            <p>Your Score: {count}</p>
+            <h1>Game Over!</h1>
+            <p>YOUR SCORE: {count}</p>
             <button
               className="reset-button"
               type="button"
